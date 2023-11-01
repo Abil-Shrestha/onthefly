@@ -15,7 +15,7 @@ const CreateTrip = () => {
         })
     }
     
-    const createPost = (event) => {
+    const createPost = async (event) => {
         event.preventDefault();
         const options = {
             method: 'POST',
@@ -25,7 +25,7 @@ const CreateTrip = () => {
             body: JSON.stringify(post)
           }
         
-          fetch('/api/trips', options)
+          await fetch('http://localhost:3001/api/trips', options)
           window.location.href = '/'
 
         

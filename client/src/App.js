@@ -24,8 +24,18 @@ const App = () => {
       const data = await res.json()
       setTrips(data)
     }
+
+    const fetchDestinations = async () => {
+      const res =await fetch('http://localhost:3000/api/destinations')
+      const data =res.json()
+      setDestinations(data)
+    }
+
     fetchtrips()
+    fetchDestinations()
   }, []);
+
+  
 
   // Sets up routes
   let element = useRoutes([

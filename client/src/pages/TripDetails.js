@@ -16,12 +16,15 @@ const TripDetails = ({data}) => {
         setPost({id: parseInt(result.id), title: result.title, description: result.description, img_url: result.img_url, num_days: parseInt(result.num_days), start_date: result.start_date.slice(0,10), end_date: result.end_date.slice(0,10), total_cost: result.total_cost});
 
         const fetchActivities = async () => {
-
-
+            const res = await fetch(`http://localhost:3000/api/activities/${id}`)
+            const data = await res.json()
+            setActivities(data)
         }
 
         const fetchDestinations = async () => {
-
+            const res = await fetch(`http://localhost:3000/api/trips-destinations/destinations/${id}`)
+            const data = await res.json()
+            setDestinations(data)
             
         }
 
