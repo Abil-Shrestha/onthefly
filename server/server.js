@@ -1,13 +1,15 @@
 import express from 'express'
 import cors from 'cors'
+import passport from 'passport'
+import session from 'express-session'
+import { GitHub } from './config/auth.js'
+//routes
+import authRoutes from './routes/auth.js'
 import tripRoutes from './routes/trips.js'
 import activityRoutes from './routes/activities.js'
 import destinationRoutes from './routes/destination.js'
 import tripDestinationRoutes from './routes/trip_dest.js'
-import passport from 'passport'
-import session from 'express-session'
-import { GitHub } from './config/auth.js'
-import authRoutes from './routes/auth.js'
+import userTripRoutes from './routes/users-trip.js'
 
 const app  = express()
 app.use(session({
@@ -45,6 +47,7 @@ app.use('/api/activities', activityRoutes)
 app.use('/api/destinations', destinationRoutes)
 app.use('/api/trips-destinations', tripDestinationRoutes)
 app.use('/auth', authRoutes)
+app.use('/users-trips', userTripRoutes)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
