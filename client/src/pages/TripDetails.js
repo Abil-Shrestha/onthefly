@@ -4,7 +4,7 @@ import ActivityBtn from '../components/ActivityBtn';
 import DestinationBtn from '../components/DestinationBtn';
 import './TripDetails.css'
 
-const TripDetails = ({data}) => {
+const TripDetails = ({data, api_url}) => {
 
     const {id} = useParams();
     const [post, setPost] = useState({id: 0, title: "", description: "", img_url: "", num_days: 0, start_date: "", end_date: "", total_cost: 0.0 })
@@ -16,7 +16,7 @@ const TripDetails = ({data}) => {
         setPost({id: parseInt(result.id), title: result.title, description: result.description, img_url: result.img_url, num_days: parseInt(result.num_days), start_date: result.start_date.slice(0,10), end_date: result.end_date.slice(0,10), total_cost: result.total_cost});
 
         const fetchActivities = async () => {
-            const res = await fetch(`http://localhost:3000/api/activities/${id}`)
+            const res = await fetch(`${api_url}/api/activities/${id}`)
             const data = await res.json()
             setActivities(data)
         }
