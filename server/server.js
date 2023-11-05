@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: 'http://localhost:3000',
   methods: 'GET,POST,PUT,DELETE,PATCH',
   credentials: true
 }))
@@ -39,7 +39,7 @@ passport.deserializeUser((user, done) => {
 })
 
 app.get('/', (req, res) => {
-    res.status(200).send('<h1 style="text-align: center; margin-top: 50px;">✈️ Wohooo</h1>')
+  res.redirect('http://localhost:3000')
 })
 
 app.use('/api/trips', tripRoutes)

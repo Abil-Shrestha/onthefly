@@ -3,12 +3,11 @@ import { pool } from './database.js'
 
 const options = {
     clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3001/auth/github/callback'
+    clientSecret: process.env.GITHUB_CLIENT_SECRET
 }
 
 const verify = async (accessToken, refreshToken, profile, callback) => {
-    const { _json: { id, name, login, avatar_url } } = profile
+    const { _json: { id, login, avatar_url } } = profile
     const userData = {
         githubId: id,
         username: login,
@@ -24,7 +23,7 @@ const verify = async (accessToken, refreshToken, profile, callback) => {
         const user = results.rows[0]
         if(!user){
             const results = await pool.query(
-                'INSERT INTO users(githubid, username, avatarurl, accesstoken) VALUES($1,$2,$3,$4) RETURNING *',[userData.githubId,userData.username,userData.avatarUrl,accessToken]
+                `INSERT INTO users(githubid, username, avatarurl, accesstoken) VALUES($1,$2,$3,$4) RETURNING *`,[userData.githubId,userData.username,userData.avatarUrl,accessToken]
             )
 
             const newUser = results.rows[0]

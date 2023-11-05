@@ -1,43 +1,45 @@
 import { pool } from '../config/database.js'
 
-const createUsersTableQuery = `
-CREATE TABLE IF NOT EXISTS users (
-    id serial PRIMARY KEY,
-    githubid int NOT NULL,
-    username varchar(200) NOT NULL,
-    avatarurl varchar(500),
-    accesstoken varchar(500) NOT NULL
-);
-`
-const createUsersTripsTableQuery = `
-CREATE TABLE IF NOT EXISTS users_trips (
-    id serial PRIMARY KEY,
-    trip_id int NOT NULL,
-    username text NOT NULL,
-    FOREIGN KEY (trip_id) REFERENCES trips(id)
-);
-`
+const createTables = async(req,res) => {
+    const createUsersTableQuery = `
+    CREATE TABLE IF NOT EXISTS users (
+        id serial PRIMARY KEY,
+        githubid int NOT NULL,
+        username varchar(200) NOT NULL,
+        avatarurl varchar(500),
+        accesstoken varchar(500) NOT NULL
+    );
+    `
+    const createUsersTripsTableQuery = `
+        CREATE TABLE IF NOT EXISTS users_trips (
+            id serial PRIMARY KEY,
+            trip_id int NOT NULL,
+            username text NOT NULL,
+            FOREIGN KEY (trip_id) REFERENCES trips(id)
+        );
+        `
 
-pool.query(createUsersTableQuery, (error, res) => {
-    if (error) {
-        console.log(error)
-        return
-    }
-    
-    console.log('✅ users table created successfully!')
+    pool.query(createUsersTableQuery, (error, res) => {
+        if (error) {
+            console.log(error)
+            return
+        }
+        console.log('✅ users table created successfully!')
 })
 
-pool.query(createUsersTripsTableQuery, (error, res) => {
-    if (error) {
-        console.log(error)
-        return
-    }
+    pool.query(createUsersTripsTableQuery, (error, res) => {
+        if (error) {
+            console.log(error)
+            return
+        }
 
-    console.log('✅ users_trips table created successfully!')
-})
+        console.log('✅ users_trips table created successfully!')
+    })
+}
 
 const createTripUser = async(req,res) => {
     try{
+        createTables()
         const trip_id = parseInt(req.params.trip_id)
         const { username } = req.userbody
         const results = await poolquery(`
@@ -81,3 +83,10 @@ export const getUserTrips = async (req, res) => {
         console.log('🚫 unable to GET users trips = Error:', error.message)
     }
 }
+
+
+export default {
+    createTripUser,
+    getUserTrips,
+    getTripUsers,
+  }
