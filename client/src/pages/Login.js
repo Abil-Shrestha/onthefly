@@ -1,5 +1,3 @@
-import React from 'react'
-import Link from 'react-router-dom'
 
 const Login = (props) => {
     const AUTH_URL = `${props.api_url}/auth/github`

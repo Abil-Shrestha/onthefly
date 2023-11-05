@@ -5,10 +5,10 @@ import DestinationCard from '../components/DestinationCard';
 const ReadDestinations = (props) => {
 
     const [destinations, setDestinations] = useState([]);
+    
 
-
-    useEffect(() => {
-
+    useEffect(async () => {
+        const response = await fetch(`${props.api_url}/api/destinations`)
         setDestinations(props.data);
     }, [props]);
     
