@@ -42,7 +42,7 @@ const AddUserToTrip = () => {
             <label>Trip ID</label><br />
             <input type='number' id='trip_id' name='trip_id' value={trip_id} readOnly /><br />
             <br />
-
+            
             <input type='submit' value='Submit' onClick={addUserToTrip} />
         </form>
     </div>

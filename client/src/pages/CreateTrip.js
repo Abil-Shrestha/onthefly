@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CreateTrip.css'
 
-const CreateTrip = (props) => {
+const CreateTrip = ({user, api_url}) => {
 
     const [post, setPost] = useState({id: 0, title: "", description: "", img_url: "", num_days: 0, start_date: "", end_date: "", total_cost: 0.0 })
     const [trip, setTrip] = useState({
@@ -13,7 +13,7 @@ const CreateTrip = (props) => {
         start_date: '',
         end_date: '',
         total_cost: 0.0,
-        username: props.user.username
+        username: user.username
     })
     
     const handleChange = (event) => {
